@@ -24,7 +24,7 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.OK).body(itemRepository.findAll());
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Item> addItem(@RequestBody Item itemToAdd) {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.addItem(itemToAdd));
     }
