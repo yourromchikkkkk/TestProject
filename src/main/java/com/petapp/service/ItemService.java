@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ItemService {
 
+    Item getItemById(long id);
+
+    void updateCount(long itemId, int newCount);
+
     Item addItem(Item itemToAdd);
 
     ItemDto getById(long id);

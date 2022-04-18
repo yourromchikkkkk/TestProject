@@ -20,13 +20,13 @@ public class ItemController {
     ItemRepository itemRepository;
 
     @GetMapping
-    public List<Item> getAllItems() {
-        return itemRepository.findAll();
+    public ResponseEntity<List<Item>> getAllItems() {
+        return ResponseEntity.status(HttpStatus.OK).body(itemRepository.findAll());
     }
 
     @PostMapping
-    public Item addItem(@RequestBody Item itemToAdd) {
-        return itemService.addItem(itemToAdd);
+    public ResponseEntity<Item> addItem(@RequestBody Item itemToAdd) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemService.addItem(itemToAdd));
     }
 
     @GetMapping("/{id}")
