@@ -27,8 +27,7 @@ public class ItemServiceImpl implements ItemService {
     ItemMapper itemMapper;
     ItemWithAmountMapper itemWithAmountMapper;
 
-    @Override
-    public Item getItemById(long id) {
+    private Item getItemById(long id) {
         Optional<Item> optionalItem = itemRepository.findItemById(id);
         if (optionalItem.isPresent()) {
             return optionalItem.get();
@@ -43,14 +42,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public boolean isEnough(long itemId, int needAmount) {
         return getItemById(itemId).getAvailableAmount() >= needAmount;
-    }
-
-    @Override
-    public void increaseAmount(long itemId, int count) {
-        Item itemToUpdate = getItemById(itemId);
-        itemToUpdate.setAvailableAmount(itemToUpdate.getAvailableAmount() + count);
-        itemRepository.save(itemToUpdate);
-        log.info("Item amount with id = " + itemId + " was updated");
     }
 
     @Override

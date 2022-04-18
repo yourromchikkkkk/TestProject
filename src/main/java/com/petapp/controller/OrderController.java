@@ -30,13 +30,13 @@ public class OrderController {
 
     @PostMapping("/create")
     public ResponseEntity<OrderDto> addOrder(@RequestBody Map<Long, Integer> itemCountMapping) {
-        return ResponseEntity.status(HttpStatus.OK).body(orderService.formOrder(itemCountMapping));
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.formOrder(itemCountMapping));
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity deleteNotValidOrders() {
         orderService.deleteOrders();
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
 }
