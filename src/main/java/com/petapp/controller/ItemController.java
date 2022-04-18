@@ -31,7 +31,7 @@ public class ItemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ItemDto> getItemById(@PathVariable(name = "id") long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(itemService.getById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(itemService.getItemDtoById(id));
     }
 
     @GetMapping("/cheapest/{name}")

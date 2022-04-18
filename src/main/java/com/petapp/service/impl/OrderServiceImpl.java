@@ -8,7 +8,6 @@ import com.petapp.exception.OrderNotFoundException;
 import com.petapp.exception.constant.ErrorMessage;
 import com.petapp.mapping.ItemMapper;
 import com.petapp.mapping.OrderMapper;
-import com.petapp.repository.ItemRepository;
 import com.petapp.repository.OrderRepository;
 import com.petapp.service.ItemService;
 import com.petapp.service.OrderService;
@@ -28,15 +27,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
-    ItemRepository itemRepository;
     ItemService itemService;
     OrderMapper orderMapper;
     ItemMapper itemMapper;
-
-    private Order addOrder(Order order) {
-        log.info("Order was added");
-        return orderRepository.save(order);
-    }
 
     @Override
     public OrderDto formOrder(Map<Long, Integer> itemCountMapping) {
@@ -48,13 +41,14 @@ public class OrderServiceImpl implements OrderService {
                 throw new NotEnoughItemsException(ErrorMessage.NOT_ENOUGH_ITEMS + elem.getKey());
             }
             for(int index = 0; index < elem.getValue(); index++) {
-                ItemDto item = itemService.getById(elem.getKey());
+                ItemDto item = itemService.getItemDtoById(elem.getKey());
                 sumToPay += item.getPrice();
             }
             itemService.decreaseAmount(elem.getKey(),elem.getValue());
         }
         order.setSumToPay(sumToPay);
-        return orderMapper.convert(addOrder(order));
+        log.info("Order was added");
+        return orderMapper.convert(orderRepository.save(order));
     }
 
     @Override

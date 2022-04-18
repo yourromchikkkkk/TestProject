@@ -12,7 +12,7 @@ public interface ItemService {
 
     Item addItem(Item itemToAdd);
 
-    ItemDto getById(long id);
+    ItemDto getItemDtoById(long id);
 
     boolean isEnough(long itemId, int needAmount);
 

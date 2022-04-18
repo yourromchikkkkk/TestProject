@@ -35,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
         throw new ItemNotFoundException(ErrorMessage.ITEM_NOT_FOUND);
     }
     @Override
-    public ItemDto getById(long id) {
+    public ItemDto getItemDtoById(long id) {
         return itemMapper.convert(getItemById(id));
     }
 
@@ -82,7 +82,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item addItem(Item itemToAdd) {
-        if (itemToAdd.getPrice() > 0 && itemToAdd.getAvailableAmount() > 0) {
+        if (itemToAdd.getPrice() > 0 && itemToAdd.getAvailableAmount() >= 0) {
             log.info("item was added");
             return itemRepository.save(itemToAdd);
         }

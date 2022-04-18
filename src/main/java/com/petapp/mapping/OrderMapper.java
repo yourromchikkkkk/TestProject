@@ -24,7 +24,7 @@ public class OrderMapper {
 
         for (Map.Entry<Long, Integer> elem : source.getItems().entrySet()) {
             for (int index = 0; index < elem.getValue(); index++) {
-                items.add(itemService.getById(elem.getKey()));
+                items.add(itemService.getItemDtoById(elem.getKey()));
             }
         }
 
